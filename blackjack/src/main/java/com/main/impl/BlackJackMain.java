@@ -5,10 +5,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+
+import com.google.common.net.MediaType;
 import com.main.entity.Card;
 import com.main.entity.Player;
 import com.main.utility.CardUtil;
 import com.main.utility.blackjack.BlackjackUtil;
+
 
 public class BlackJackMain {
 	static BlackjackUtil blackjackutil = null;
@@ -17,6 +23,7 @@ public class BlackJackMain {
 	static int iterationCount = 0;
 	static int noOfCardsAssigned = 0;
 	static List<Card> cardList = null;
+
 	public static void main(String[] args) {
 
 		
@@ -42,7 +49,7 @@ public class BlackJackMain {
 			if (iterationCount == 0) {
 				noOfCardsAssigned = 2;
 				playerCards = blackjackutil.assignCardToAllPlayers(playerCards,noOfCardsAssigned);
-				//System.out.println("created a Map between player and card");
+				System.out.println("created a Map between player and card");
 				iterationCount++;
 			}
 			// sub step 2 if it is not the 1st time distribution

@@ -92,11 +92,13 @@ public class BlackjackUtil {
 		//Check  the last card has reached 52
 		
 		int iterationCount = noOfCardsAssigned;
-if(lastCardAssignedCount==52){cardSet.formDeck();cardSet.shuffleDeck();lastCardAssignedCount=0;}
+
 		for (Player player : playerList) {
 			List<Card> cardList = new ArrayList();
 			for (int cnt = 0; cnt < noOfCardsAssigned; cnt++) {
-				cardList.add(cardSet.getDeck().get(lastCardAssignedCount));
+				checkCardCount();
+				cardList=cardAssignment(cardList);
+		//	cardList.add(cardSet.getDeck().get(lastCardAssignedCount));
 				iterationCount++;
 				lastCardAssignedCount++;
 			}
@@ -137,14 +139,17 @@ if(lastCardAssignedCount==52){cardSet.formDeck();cardSet.shuffleDeck();lastCardA
 		String playerName = player.getPlayer();
 		System.out.println(playerName);
 		// used for count
-		if(lastCardAssignedCount==52){cardSet.formDeck();cardSet.shuffleDeck();lastCardAssignedCount=0;}
+		
 		if (gameContinue == 1 && !(player.getPlayer().equals("DEALER")) && checkCurScore < 21) {
 			System.out.println("ENTERD In the 2nd LOOP");
 
 			int iterationCount = noOfCardsAssigned;
 
 			for (int cnt = 0; cnt < noOfCardsAssigned; cnt++) {
-				cardList.add(cardSet.getDeck().get(lastCardAssignedCount));
+				
+				checkCardCount();
+				cardList=cardAssignment(cardList);
+			//	cardList.add(cardSet.getDeck().get(lastCardAssignedCount));
 				iterationCount++;
 				lastCardAssignedCount++;
 
@@ -197,6 +202,7 @@ if(lastCardAssignedCount==52){cardSet.formDeck();cardSet.shuffleDeck();lastCardA
 			if (checkCurScore < highestCardScore) {
 
 				for (int cnt = 0; cnt < noOfCardsAssigned; cnt++) {
+					checkCardCount();
 					cardList.add(cardSet.getDeck().get(lastCardAssignedCount));
 
 					lastCardAssignedCount++;
@@ -304,14 +310,23 @@ if(lastCardAssignedCount==52){cardSet.formDeck();cardSet.shuffleDeck();lastCardA
 	}
 
 	// Handling Aus
-	public int firstCardValidatorForUser()
+	public static List<Card>  cardAssignment(List<Card> cardlist)
 
-	{
-
-		System.out.println("Should AUS  be 1 or 11 type specific value");
-
-		return userInput.nextInt();
+	{System.out.println("IN CARD ASSIGNMENT");
+		if(cardSet.getDeck().get(lastCardAssignedCount).getCardfacevalue()==1)
+		{
+			System.out.println("Should AUS  be 1 or 14 type specific value");
+			cardSet.getDeck().get(lastCardAssignedCount).setCardfacevalue(userInput.nextInt());
+					
+		}
+		cardlist.add(cardSet.getDeck().get(lastCardAssignedCount));
+		
+		return cardlist;
 	}
 	
+	public static void checkCardCount()
+	{
+		if(lastCardAssignedCount==52){cardSet.formDeck();cardSet.shuffleDeck();lastCardAssignedCount=0;}
+	}
 
 }
